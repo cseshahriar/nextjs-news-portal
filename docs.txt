@@ -1,0 +1,18 @@
+-------------------------------------------------------------------------------
+npx create-next-app@latest
+-------------------------------------------------------------------------------
+
+1. Install prisma with mysql
+--------------------------
+npm install prisma --save-dev
+npx prisma init --datasource-provider mysql  # sqlite
+
+2. Create migration
+----------------------------
+npx prisma migrate dev --name create_new_user_migration
+
+3. Re migration
+------------------------------
+npx prisma migrate dev --name migration_name
+
+npm prisma migrate dev
