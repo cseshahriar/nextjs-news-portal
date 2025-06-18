@@ -34,18 +34,17 @@ export async function POST(req) {
 
         // create cookies
         let expiredDuration = new Date(Date.now() + 24*60*60*1000);
-        const cookiesString = `token=${token}; Expires:${expiredDuration}; path:/`;
+        const cookiesString = `token=${token}; expires=${expiredDuration.toISOString()}; path:/`;
 
-        // ✅ Set cookie properly
-        cookies().set({
-            name: "token",
-            value: token,
-            httpOnly: true,
-            path: "/",
-            maxAge: 24 * 60 * 60, // 1 day
-            sameSite: "lax",
-            secure: process.env.NODE_ENV === "production",
-        });
+        // cookies().set({
+        //     name: "token",
+        //     value: token,
+        //     httpOnly: true,
+        //     path: "/",
+        //     maxAge: 24 * 60 * 60, // 1 day
+        //     sameSite: "lax",
+        //     secure: process.env.NODE_ENV === "production",
+        // });
 
         return NextResponse.json(
             {
@@ -60,7 +59,9 @@ export async function POST(req) {
                     token,
                 },
             },
-            {status:200}
+            {status:200, headers: {
+                'set-cookie': cookiesString
+            }}
         );
     } catch (error) {
         console.error("Login Error:", error);
