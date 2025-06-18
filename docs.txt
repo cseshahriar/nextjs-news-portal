@@ -16,3 +16,17 @@ npx prisma migrate dev --name create_new_user_migration
 npx prisma migrate dev --name migration_name
 
 npm prisma migrate dev
+
+current lecture:
+-----------------
+5 backend create registration
+
+
+DATABASE_URL="mysql://root:password@localhost:3306/nesportaldb"
+JWT_SECRET=uD#48KzYv@l%1mqN9eBt$zW!o8j^2cA7
+openssl rand -base64 32
+
+npm i jose
+JWT_SECRET="uD#48KzYv@l%1mqN9eBt$zW!o8j^2cA7"
+JWD_ISSUER="Localhost"
+JWT_EXPIRATION_TIME="24h"

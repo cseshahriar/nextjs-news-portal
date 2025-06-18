@@ -22,7 +22,7 @@ model users {
   lastName  String? @db.VarChar(50)
   email     String @db.VarChar(50) @unique
   mobile    String? @db.VarChar(50)
-  password  String @db.VarChar(50)
+  password  String @db.VarChar(100)
   otp       String? @db.VarChar(10)
   comments  comments[]
   active Boolean @default(true)
