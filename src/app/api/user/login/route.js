@@ -2,6 +2,7 @@ import { PrismaClient } from "@/generated/prisma";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { createToken } from "@/utility/JWTTokenHelper";
+import { cookies } from "next/headers";
 
 const prisma = new PrismaClient({
   log: ['query', 'info', 'warn', 'error'],
@@ -32,8 +33,20 @@ export async function POST(req) {
         const token =  await createToken(user.email, user.id);
 
         // create cookies
-        let expiredDuration = new Date(Date.now()+24*60*60*1000);
-        const cookiesString = `token=${token};expire:${expiredDuration.toUTCString()};path:/`;
+        let expiredDuration = new Date(Date.now() + 24*60*60*1000);
+        const cookiesString = `token=${token}; Expires:${expiredDuration}; path:/`;
+
+        // ✅ Set cookie properly
+        cookies().set({
+            name: "token",
+            value: token,
+            httpOnly: true,
+            path: "/",
+            maxAge: 24 * 60 * 60, // 1 day
+            sameSite: "lax",
+            secure: process.env.NODE_ENV === "production",
+        });
+
         return NextResponse.json(
             {
             status: "success",
@@ -47,7 +60,7 @@ export async function POST(req) {
                     token,
                 },
             },
-            {status:200, headers: {'set-cookies': cookiesString}}
+            {status:200}
         );
     } catch (error) {
         console.error("Login Error:", error);
