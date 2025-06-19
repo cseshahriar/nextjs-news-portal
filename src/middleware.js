@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { verifyToken } from "./utility/JWTTokenHelper";
-import { cookies } from 'next/headers';
 
 export async function middleware(req, res) {
  try {
@@ -13,10 +12,27 @@ export async function middleware(req, res) {
 
     return NextResponse.next({request: {headers: requestHeader}})
  } catch (error) {
-    const requestHeader = new Headers(req.headers);
-
-    requestHeader.set('email', "0");
-    requestHeader.set('id', "0");
-    return NextResponse.next({request: {headers: requestHeader}})
+      //  const requestHeader = new Headers(req.headers);
+      //  requestHeader.set('email', "0");
+      //  requestHeader.set('id', "0");
+      //  return NextResponse.next({request: {headers: requestHeader}})
+      if(req.nextUrl.pathname.startsWith("/api/")){
+         return NextResponse.json({status:'fail', data:'Unauthorized'}, {status:401});
+      }
+      else {
+         return NextResponse.redirect(new URL('/user/login', req.url))
+      }
  }
+}
+
+
+export const config={
+    matcher:[
+        '/user',
+        '/profile',
+        '/comments',
+        '/api/comments/manage',
+        '/api/user/profile/details',
+        '/api/user/profile/update',
+    ]
 }
