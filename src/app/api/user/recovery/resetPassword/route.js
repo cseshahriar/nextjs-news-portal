@@ -26,6 +26,7 @@ export async function POST(req, res) {
                     email: reqBody['email'], // 👈 Ensure this is unique or use `id`
                 },
                 data: {
+                    otp: '', // reset
                     password: hashedPassword, // Replace plain text password
                 }
             });
