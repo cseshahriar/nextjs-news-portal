@@ -22,11 +22,13 @@ current lecture:
 5 backend create registration
 
 
-DATABASE_URL="mysql://root:password@localhost:3306/nesportaldb"
-JWT_SECRET=uD#48KzYv@l%1mqN9eBt$zW!o8j^2cA7
 openssl rand -base64 32
-
 npm i jose
+
+DATABASE_URL="mysql://root:shahriar847847@localhost:3306/nesportaldb"
 JWT_SECRET="uD#48KzYv@l%1mqN9eBt$zW!o8j^2cA7"
 JWD_ISSUER="Localhost"
 JWT_EXPIRATION_TIME="24h"
+NODE_ENV="development"
+APP_PASS=""
+MAIL_FROM=""

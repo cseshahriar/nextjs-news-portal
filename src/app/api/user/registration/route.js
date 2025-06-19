@@ -17,7 +17,8 @@ export async function POST(req) {
             }
         });
 
-        return NextResponse.json({ status: "success", data: user });
+        const { password, ...userWithoutPassword } = user;
+        return NextResponse.json({ status: "success", data: userWithoutPassword });
     } catch (error) {
         console.error("Registration Error:", error);
         return NextResponse.json({ status: "fail", error: error.message });
