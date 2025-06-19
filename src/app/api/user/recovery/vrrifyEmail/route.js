@@ -26,8 +26,9 @@ export async function GET(req, res) {
                     data: {otp: otp.toString()}
                 }
             )
+            const { password, ...userWithoutPassword } = result;
             return NextResponse.json({
-                status: "success", data: result}, { status: 200}
+                status: "success", data: userWithoutPassword}, { status: 200}
             );
         } else {
             return NextResponse.json({
