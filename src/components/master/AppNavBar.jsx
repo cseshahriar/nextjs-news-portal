@@ -1,67 +1,64 @@
-import React from 'react'
+'use client';
 
-const AppNavBar = () => {
+import React from 'react';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import Link from 'next/link'; // use Next.js <Link>
+
+const AppNavBar = (props) => {
   return (
-    <div>
-        <div class="py-2 bg-dark text-white container-fluid">
-            <div class="container">
-                <div class="row justify-content-between">
-                    <div class="col-md-4">
-                        <h6><i class="bi bi-calendar2-check"></i> Today:<span id="newDate"></span>
-                            <script>
-                                (function() {
-                                    const today = new Date();
-                                    const options = {
-                                        weekday: 'long',
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric'
-                                    };
-                                    document.getElementById('newDate').textContent = today.toLocaleDateString(undefined, options);
-                                })();
-                            </script>
-                        </h6>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="float-end">
-                            <a target="_blank" class="text-white" href="#"><i class="mx-2 bi bi-facebook"></i></a>
-                            <a target="_blank" class="text-white" href="#"><i class="mx-2 bi bi-youtube"></i></a>
-                            <a target="_blank" class="text-white" href="#"><i class="mx-2 bi bi-twitter"></i></a>
-                            <a target="_blank" class="text-white" href="#"><i class="mx-2 bi bi-linkedin"></i></a>
-                        </span>
-                    </div>
-                </div>
+   <div>
+      <div className="py-2 bg-dark text-white container-fluid">
+        <div className="container">
+          <div className="row justify-content-between">
+            <div className="col-md-4">
+            <h6><i className="bi bi-calendar2-check"></i> Today:<span> {new Date().getDay()}/{new Date().getMonth()}/{new Date().getFullYear()} </span></h6>
             </div>
+            <div className="col-md-4">
+              <span className="float-end">
+                <a target="_blank" className="text-white" href={props.data['socials'][0].facebook}><i className="mx-2 bi bi-facebook"></i></a>
+                <a target="_blank" className="text-white" href={props.data['socials'][0].youtube}><i className="mx-2 bi bi-youtube"></i></a>
+                <a target="_blank" className="text-white" href={props.data['socials'][0].twitter}><i className="mx-2 bi bi bi-twitter"></i></a>
+                <a target="_blank" className="text-white" href={props.data['socials'][0].linkedin}><i className="mx-2 bi bi-linkedin"></i></a>
+                <a target="_blank" className="text-white" href={props.data['socials'][0].instagram}><i className="mx-2 bi bi-instagram"></i></a>
+              </span>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <nav class="navbar expand-lg bg-white sticky-top shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img class="navbar-logo" src="/images/logo.svg" alt="img">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavScroll" aria-controls="navbarNavScroll" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavScroll">
-                    <ul class="navbar-nav me-auto my-3 my-lg-0" style="max-height: 100px" id="navbarScroll">
-                        <li class="nav-item">
-                            <a class="nav-link nav-link f-13" href="/">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link f-13" href="/category?id=">Link</a>
-                        </li>
-                    </ul>
-                    <div class="d-flex ms-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search..." aria-label="Search">
-                            <a href="/search?keyword=" class="btn btn-danger" type="button"><i class="bi bi-search"></i></a>
-                        </div>
-                    </div>
-                    <a href="/user/login" class="btn ms-3 btn-outline-danger">Login</a>
+      <Navbar expand="lg" className="bg-white sticky-top shadow-sm">
+        <div className="container">
+          <div className="navbar-brand">
+            <img className="nav-logo" src={"/images/logo.svg"} alt="img"/>
+          </div>
+          <Navbar.Toggle aria-controls="navbarScroll" />
+          <Navbar.Collapse id="navbarScroll">
+            <Nav className="me-auto ms-3 my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
+              <Link className="nav-link f-13" href="/">Home</Link>
+              {
+                props.data['categories']?.map(
+                  (category) => {
+                    return <Link key={category.id} className="nav-link f-13" href={`/category?id=${category.id}`} >{category.name}</Link>
+                  }
+                )
+              }
+            </Nav>
+
+            <div className="d-flex ms-3">
+              <div className="input-group">
+                <input type="text" className="form-control" placeholder="Search..."/>
+                <Link href={`/search?keyword=`} className="btn btn-danger" type="button"><i
+                className="bi bi-search"></i></Link>
                 </div>
             </div>
-        </nav>
-    </div>
+
+            <>
+              <Link href="/user/login" className="btn ms-3 btn-outline-danger">Login</Link>
+            </>
+          </Navbar.Collapse>
+        </div>
+      </Navbar>
+  </div>
   )
 }
 

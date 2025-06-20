@@ -7,6 +7,13 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
+  // import { PrismaClient } from "@/generated/prisma"; // ✅ custom import
+
+  // remove `output` to use default location
+  // not work for first option
+  // import { PrismaClient } from "@prisma/client";
+
+
 }
 
 datasource db {

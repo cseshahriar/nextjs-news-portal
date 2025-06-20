@@ -1,9 +1,11 @@
 import Image from "next/image";
+import PlainLayout from "@/components/master/PlainLayout";
+
 
 export default function Home() {
   return (
-    <div>
-      <h1>Home page</h1>
-    </div>
+   <PlainLayout>
+      <h1>Home Page</h1>
+   </PlainLayout>
   );
 }
