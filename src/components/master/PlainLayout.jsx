@@ -1,5 +1,6 @@
 import AppNavBar from '@/components/master/AppNavBar'
 import Footer from '@/components/master/Footer'
+import { Toaster } from 'react-hot-toast';
 
 async function getData() {
   let socials = (await (await fetch(`${process.env.HOST}/api/social`)).json())['data'];
@@ -14,6 +15,7 @@ const PlainLayout = async(props) => {
     <>
       <AppNavBar data={data} />
       {props.children}
+      <Toaster position='bottom-center' />
       <Footer  data={data} />
     </>
   )
