@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Comments-List = () => {
+const CommentsList = () => {
   return (
     <div>Comments-List</div>
   )
 }
 
-export default Comments-List
+export default CommentsList

@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Comment-Form = () => {
+const CommentForm = () => {
   return (
     <div>Comment-Form</div>
   )
 }
 
-export default Comment-Form
+export default CommentForm
