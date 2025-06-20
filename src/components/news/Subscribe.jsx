@@ -29,7 +29,7 @@ const Subscribe = () => {
       if(response.status === "success") {
         SuccessToast("Request success");
       } else {
-        ErrorToast("Try Again");
+        ErrorToast("Already Exists!");
       }
     }
   }

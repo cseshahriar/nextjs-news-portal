@@ -4,7 +4,6 @@ import Link from "next/link";
 import Subscribe from '@/components/news/Subscribe';
 
 const Footer = (props) => {
-  console.log("Footer Categories:", props.data?.categories);
   return (
     <div className="section-footer">
       <div className="py-5 bg-dark">
