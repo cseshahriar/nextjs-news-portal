@@ -1,10 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, {useState} from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import Link from 'next/link'; // use Next.js <Link>
 
 const AppNavBar = (props) => {
+  const [keyword,SetKeyword] = useState("");
+
   return (
    <div>
       <div className="py-2 bg-dark text-white container-fluid">
@@ -29,7 +31,9 @@ const AppNavBar = (props) => {
       <Navbar expand="lg" className="bg-white sticky-top shadow-sm">
         <div className="container">
           <div className="navbar-brand">
-            <img className="nav-logo" src={"/images/logo.svg"} alt="img"/>
+            <Link href="/">
+              <img className="nav-logo" src={"/images/logo.svg"} alt="img"/>
+            </Link>
           </div>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -46,9 +50,8 @@ const AppNavBar = (props) => {
 
             <div className="d-flex ms-3">
               <div className="input-group">
-                <input type="text" className="form-control" placeholder="Search..."/>
-                <Link href={`/search?keyword=`} className="btn btn-danger" type="button"><i
-                className="bi bi-search"></i></Link>
+                <input onChange={(e)=>{SetKeyword(e.target.value)}} type="text" className="form-control" placeholder="Search..."/>
+                <Link href={keyword===""?("/"):(`/search?keyword=${keyword}`)} className="btn btn-danger" type="button"><i className="bi bi-search"></i></Link>
                 </div>
             </div>
 
