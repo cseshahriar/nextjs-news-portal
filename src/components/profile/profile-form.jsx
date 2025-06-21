@@ -21,7 +21,7 @@ const ProfileForm = (props) => {
             lastName: props.data['lastName'],
             email: props.data['email'],
             mobile: props.data['mobile'],
-            password: props.data['password'],
+            password: "",
             otp: "0"
         })
     }, []);
@@ -45,6 +45,9 @@ const ProfileForm = (props) => {
         }
         else if(IsEmpty(data.mobile)){
             ErrorToast("Mobile No Required!")
+        }
+        else if(IsEmpty(data.email)){
+            ErrorToast("Email is Required!")
         }
         else {
             setSubmit(true);
@@ -84,7 +87,7 @@ const ProfileForm = (props) => {
                             </div>
                             <div className="col-md-4 col-lg-4 col-sm-12 p-1 col-12">
                                 <label className="form-label">Email</label>
-                                <input value={data.email} onChange={(e) => {inputOnChange('email', e.target.value)}} type="email" className="form-control"/>
+                                <input readOnly value={data.email} onChange={(e) => {inputOnChange('email', e.target.value)}} type="email" className="form-control"/>
                             </div>
                             <div className="col-md-4 col-lg-4 col-sm-12 p-1 col-12">
                                 <label className="form-label">Password</label>

@@ -10,10 +10,8 @@ async function getData(cookies) {
 }
 
 const Page = async () => {
-
     const cookieStore = cookies()
     let data=await getData(cookieStore);
-
     return (
         <PlainLayout>
             <ProfileForm data={data['profile']} />
