@@ -4,21 +4,21 @@ import parse from "html-react-parser";
 
 async function getData(){
     try {
-        const res = await fetch(`${process.env.HOST}/api/policy?type=terms`);
+        const res = await fetch(`${process.env.HOST}/api/policy?type=privacy`);
         const json = await res.json();
         return json?.data || [];
-    } catch (err) {
-        console.error("Failed to fetch policy data:", err);
+    } catch (error) {
+        console.error("Fetch error:", error);
         return [];
     }
 }
 
 const Page = async () => {
-    const data = await getData();
+    let data = await getData();
 
-    const content = data.length > 0 && data[0]?.long_des
+    const content = data?.length > 0 && data[0]?.long_des
         ? parse(data[0].long_des)
-        : <p className="text-danger">No terms & conditions found.</p>;
+        : <p>No privacy policy found.</p>;
 
     return (
         <PlainLayout>
