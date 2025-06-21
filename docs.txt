@@ -35,3 +35,7 @@ MAIL_FROM=""
 
 frontend start from 21:
 -----------------------
+
+const prisma = new PrismaClient({
+  log: ['query', 'info', 'warn', 'error'],
+})

@@ -20,6 +20,5 @@ export async function customSendEmail(to, subject, body) {
         text: body
     }
     const info = await transporter.sendMail(mailOptions);
-    console.log("Email sent: " + info.messageId);
     return info;
 }

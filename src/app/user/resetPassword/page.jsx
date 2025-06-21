@@ -1,9 +1,21 @@
-import React from 'react'
+import React from 'react';
+import PlainLayout from "@/components/master/PlainLayout";
+import SetPasswordForm from "@/components/user/SetPasswordForm";
+import {cookies} from "next/headers";
+import { redirect } from 'next/navigation'
+const Page = () => {
 
-const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+    const cookieStore = cookies()
+    const token = cookieStore.get('token')
+    if(typeof token!=='undefined'){
+        redirect('/')
+    }
 
-export default page
+    return (
+        <PlainLayout>
+            <SetPasswordForm/>
+        </PlainLayout>
+    );
+};
+
+export default Page;

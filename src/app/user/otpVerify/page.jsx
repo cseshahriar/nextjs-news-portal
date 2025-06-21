@@ -1,6 +1,6 @@
 import React from 'react';
 import PlainLayout from "@/components/master/PlainLayout";
-import EmailVerifyForm from "@/components/user/EmailVerifyForm";
+import PinVerifyForm from "@/components/user/PinVerifyForm";
 import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
 
@@ -12,7 +12,7 @@ const Page = () => {
     }
     return (
         <PlainLayout>
-            <EmailVerifyForm/>
+            <PinVerifyForm/>
         </PlainLayout>
     );
 };

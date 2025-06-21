@@ -4,9 +4,7 @@ import bcrypt from "bcryptjs";
 import { createToken } from "@/utility/JWTTokenHelper";
 import { cookies } from "next/headers";
 
-const prisma = new PrismaClient({
-  log: ['query', 'info', 'warn', 'error'],
-})
+const prisma = new PrismaClient()
 
 export async function POST(req) {
     try {
@@ -33,18 +31,8 @@ export async function POST(req) {
         const token =  await createToken(user.email, user.id);
 
         // create cookies
-        let expiredDuration = new Date(Date.now() + 24*60*60*1000);
-        const cookiesString = `token=${token}; expires=${expiredDuration.toISOString()}; path:/`;
-
-        // cookies().set({
-        //     name: "token",
-        //     value: token,
-        //     httpOnly: true,
-        //     path: "/",
-        //     maxAge: 24 * 60 * 60, // 1 day
-        //     sameSite: "lax",
-        //     secure: process.env.NODE_ENV === "production",
-        // });
+        let expireDuration = new Date(Date.now() + 24*60*60*1000 );
+        const cookieString = `token=${token}; expires=${expireDuration.toUTCString()} ;path=/`;
 
         return NextResponse.json(
             {
@@ -59,12 +47,18 @@ export async function POST(req) {
                     token,
                 },
             },
-            {status:200, headers: {
-                'set-cookie': cookiesString
-            }}
+            {status:200,headers:{'set-cookie':cookieString}}
         );
     } catch (error) {
         console.error("Login Error:", error);
         return NextResponse.json({ status: "fail", error: error.message }, { status: 500 });
     }
+}
+
+
+export async function GET(req,res) {
+    let expireDuration = new Date(Date.now() - 24*60*60*1000 );
+    const response = NextResponse.redirect(new URL('/', req.url),303);
+    response.cookies.set('token', '', { expires: expireDuration });
+    return response;
 }

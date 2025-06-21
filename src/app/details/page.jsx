@@ -9,12 +9,13 @@ async function getData(id){
     let Popular= (await (await fetch(`${process.env.HOST}/api/news/type?type=Popular`)).json())['data']
     let Comments= (await (await fetch(`${process.env.HOST}/api/comments/news?postID=${id}`,{ cache: 'no-store' })).json())['data']
 
-    return {Details:Details,Popular:Popular,Comments:Comments}
+    return {Details:Details, Popular:Popular, Comments:Comments}
 }
 
-const Page =async (props) => {
-    let id=props.searchParams['id'];
-    const data=await getData(id);
+const Page = async(props) => {
+    const searchParams = await props.searchParams;
+    let id = await searchParams['id'];
+    const data = await getData(id);
     return (
         <PlainLayout>
             <div className="container mt-3">

@@ -10,8 +10,6 @@ async function getData(){
     let Popular = (await (await fetch(`${process.env.HOST}/api/news/type?type=Popular`)).json())['data']
     let Latest = (await (await fetch(`${process.env.HOST}/api/news/latest`)).json())['data']
 
-    console.log('latest ', Latest);
-
     return {
         Slider: Slider,
         Featured: Featured,

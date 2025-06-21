@@ -1,9 +1,9 @@
 import { PrismaClient } from "@/generated/prisma";
 import {NextResponse} from "next/server";
-import {headers} from "next/headers";
+import { headers } from "next/headers";
 
 
-export async function GET(req, res) {
+export async function GET(req,res) {
     try{
         let headerList = headers();
         let id = parseInt(headerList.get('id'));
@@ -15,29 +15,29 @@ export async function GET(req, res) {
                 news_list:{select: {title: true}}
             }
         })
-        return NextResponse.json({status:"success", data:result})
+        return NextResponse.json({status:"success",data:result})
     }
     catch (e) {
-        return  NextResponse.json({status:"fail", data:e})
+        return  NextResponse.json({status:"fail",data:e})
     }
 }
 
-export async function POST(req, res) {
+
+
+export async function POST(req,res) {
     try{
-        let headerList = headers();
-        let id = parseInt(headerList.get('id'));
-
+       const headerList = await headers();  // ✅ await it
+       const id = parseInt(headerList.get('id'));  // ✅ safe now
         let reqBody = await req.json();
-        reqBody.userID=id;
-
+        reqBody.userID = id;
         const prisma = new PrismaClient();
         const result = await prisma.comments.create({
             data:reqBody
         })
-        return NextResponse.json({status:"success", data:result})
+        return NextResponse.json({status:"success",data:result})
     }
     catch (e) {
-        return  NextResponse.json({status:"fail", data:e})
+        return  NextResponse.json({status:"fail",data:e})
     }
 }
 
@@ -46,10 +46,10 @@ export async function DELETE(req, res) {
         let headerList = headers();
         let user_id = parseInt(headerList.get('id'));
 
-        let reqBody=await req.json();
+        let reqBody = await req.json();
 
-        const prisma=new PrismaClient();
-        const result=await prisma.comments.deleteMany({
+        const prisma = new PrismaClient();
+        const result = await prisma.comments.deleteMany({
             where: {
                 AND: [
                     { userID: user_id },
@@ -57,9 +57,9 @@ export async function DELETE(req, res) {
                 ],
             },
         })
-        return NextResponse.json({status:"success", data:result})
+        return NextResponse.json({status:"success", data: result})
     }
     catch (e) {
-        return  NextResponse.json({status:"fail", data:e})
+        return  NextResponse.json({status:"fail", data: e})
     }
 }

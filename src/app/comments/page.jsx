@@ -1,9 +1,24 @@
-import React from 'react'
+import React from 'react';
+import PlainLayout from "@/components/master/PlainLayout";
+import {cookies} from "next/headers";
+import UserCommentsList from '@/components/comments/usercommentslist';
 
-const page = () => {
-  return (
-    <div>page</div>
-  )
+async function getData(cookies) {
+    let option = {method: 'GET', headers: {'Cookie': cookies}, cache: 'no-store'}
+    let Comments = (await (await fetch(`${process.env.HOST}/api/comments/manage`,option)).json())['data'];
+    return { Comments: Comments };
 }
 
-export default page
+const Page = async () => {
+
+    const cookieStore = cookies()
+    let data = await getData(cookieStore);
+
+    return (
+        <PlainLayout>
+            <UserCommentsList data={data['Comments']}/>
+        </PlainLayout>
+    );
+};
+
+export default Page;

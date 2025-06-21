@@ -3,15 +3,12 @@ import { NextResponse } from "next/server";
 
 import { customSendEmail } from "@/utility/EmailUtility";
 
-const prisma = new PrismaClient({
-  log: ['query', 'info', 'warn', 'error'],
-})
+const prisma = new PrismaClient()
 
 export async function GET(req, res) {
     try {
         const { searchParams } = new URL(req.url);
         let email = searchParams.get('email');
-        console.log('----------------', email);
 
         // user count
         const count = await prisma.users.count({where: {email: email}});
