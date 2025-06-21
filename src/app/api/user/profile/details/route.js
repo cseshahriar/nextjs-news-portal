@@ -1,5 +1,5 @@
 import {NextResponse} from "next/server";
-import {PrismaClient} from "@prisma/client"
+import { PrismaClient } from "@/generated/prisma";
 import {headers} from "next/headers";
 
 export async function GET(req, res){
